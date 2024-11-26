@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function App3() {
+function App() {
     const initialData = {
         "rows": [
             {
@@ -53,7 +53,7 @@ function App3() {
         setData({ rows: updatedRows });
     };
 // handle row update function
-    const updateRows = (rows, id, percentage) => {
+    const updateRows = (rows, id, percentage) =>{
         // get here
         return rows.map((row) => {
             if (row.id === id) { //let' say electronics == electronics
@@ -102,7 +102,7 @@ function App3() {
                 const updatedChildren = updateRows(row.children, id, percentage);
                 // getting else block code child updated array
 
-                // console.log(updatedChildren,"updatedChildren")//getting updated array with updated values like 880
+                // console.log(updatedChildren,"updatedChildren")  //getting updated array with updated values like 880
                 const updatedParentValue = updatedChildren.reduce((sum, child) => sum + child.value, 0); // 880+700 = 1580
                 console.log(updatedParentValue, "updatedParentValue") // 1580
                 const parentVariance = ((updatedParentValue - row.value) / row.value) * 100;//5.333
@@ -190,4 +190,4 @@ function App3() {
     );
 }
 
-export default App3;
+export default App;
