@@ -121,6 +121,11 @@ function App3() {
         });
     };
 
+     // grand total code 
+     const calculateGrandTotal = () => {
+        const totalValue = data.rows.reduce((sum, row) => sum + row.value, 0);
+        return totalValue.toFixed(0);
+    };
 
     return (
         <>
@@ -177,6 +182,9 @@ function App3() {
                         }
                     </tbody>
                 </table>
+                <div>
+                    <h5>Grand Total:{calculateGrandTotal()}</h5>
+                </div>
             </div>
         </>
     );
