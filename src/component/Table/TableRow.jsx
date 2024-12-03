@@ -39,4 +39,4 @@ const TableRow = ({ row, value, setValue, handleAllocationPer, handleAllocationV
   );
 };
 
-export default TableRow;
+export default React.memo(TableRow);

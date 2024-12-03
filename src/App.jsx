@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import AllocationPercentageButton from './component/Buttons/AllocationPercentageButton';
 import AllocationValueButton from './component/Buttons/AllocationValueButton';
 import Table from './component/Table/Table';
@@ -29,16 +29,18 @@ function App() {
 
   const [value, setValue] = useState(0);
   const [data, setData] = useState(initialData);
+  const [count, setCount] = useState(0);
 
-  // handle percentage allocation
-  const handleAllocationPer = (row, percentage) => {
+  // Memoized callback for percentage allocation
+  const handleAllocationPer = useCallback((row, percentage) => {
     updateValue(row.id, percentage);
-  };
+  }, []);
 
-  const updateValue = (id, percentage) => {
+  // Memoized update function for value allocation
+  const updateValue = useCallback((id, percentage) => {
     const updatedRows = updateRowsByPer(data.rows, id, percentage);
     setData({ rows: updatedRows });
-  };
+  }, [data.rows]);
 
   const updateRowsByPer = (rows, id, percentage) => {
     return rows.map((row) => {
@@ -71,10 +73,11 @@ function App() {
     });
   };
 
-  const handleAllocationValue = (row, value) => {
+  // Memoized function for value allocation
+  const handleAllocationValue = useCallback((row, value) => {
     const updatedRows = updateRowsByValue(data.rows, row.id, value);
     setData({ rows: updatedRows });
-  };
+  }, [data.rows]);
 
   const updateRowsByValue = (rows, id, newValue) => {
     newValue = Number(newValue);
@@ -108,20 +111,24 @@ function App() {
     });
   };
 
-  const calculateGrandTotal = () => {
+  const calculateGrandTotal = useMemo(() => {
     const totalValue = data.rows.reduce((sum, row) => sum + row.value, 0);
     return totalValue.toFixed(0);
-  };
+  }, [data.rows]);
 
   return (
-    <Table
-      data={data}
-      value={value}
-      setValue={setValue}
-      handleAllocationPer={handleAllocationPer}
-      handleAllocationValue={handleAllocationValue}
-      calculateGrandTotal={calculateGrandTotal}
-    />
+    <>
+      <h4>count: {count}</h4>
+      <button onClick={() => setCount(count + 1)}>+</button>
+      <Table
+        data={data}
+        value={value}
+        setValue={setValue}
+        handleAllocationPer={handleAllocationPer}
+        handleAllocationValue={handleAllocationValue}
+        calculateGrandTotal={calculateGrandTotal}
+      />
+    </>
   );
 }
 

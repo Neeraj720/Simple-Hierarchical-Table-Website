@@ -2,6 +2,7 @@ import React from 'react';
 import TableRow from './TableRow';
 
 const Table = ({ data, value, setValue, handleAllocationPer, handleAllocationValue, calculateGrandTotal }) => {
+  console.log("child components table")
   return (
     <div className="container mt-3">
       <h3 className='text-center mb-3'>Simple Hierarchical Table Website</h3>
@@ -30,10 +31,10 @@ const Table = ({ data, value, setValue, handleAllocationPer, handleAllocationVal
         </tbody>
       </table>
       <div>
-        <h5>Grand Total: {calculateGrandTotal()}</h5>
+        <h5>Grand Total: {calculateGrandTotal}</h5>
       </div>
     </div>
   );
 };
 
-export default Table;
+export default React.memo(Table);

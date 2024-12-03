@@ -1,6 +1,7 @@
 import React from 'react';
 
 const AllocationValueButton = ({ row, value, onClick }) => {
+  console.log("child components table button")
   return (
     <button className='btn btn-danger' onClick={() => onClick(row, value)}>
       Allocation Val
@@ -8,4 +9,4 @@ const AllocationValueButton = ({ row, value, onClick }) => {
   );
 };
 
-export default AllocationValueButton;
+export default React.memo(AllocationValueButton)
